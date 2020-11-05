@@ -5,8 +5,9 @@
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Tymon\JWTAuth\Contracts\JWTSubject;
+    use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-    class User extends Authenticatable implements JWTSubject
+    class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         use Notifiable;
 
@@ -16,7 +17,7 @@
          * @var array
          */
         protected $fillable = [
-            'name', 'email', 'password',
+            'name', 'email', 'password', 'bio',
         ];
 
         /**
@@ -36,4 +37,8 @@
         {
             return [];
         }
+
+        protected $casts = [
+            'email_verified_at' => 'datetime',
+        ];
     }

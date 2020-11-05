@@ -22,7 +22,15 @@ Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
 Route::get('open', 'DataController@open');
 
-Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify','verifyEmail']], function() {
     Route::get('user', 'UserController@getAuthenticatedUser');
-    Route::get('closed', 'DataController@closed');
+    Route::post('submit_article', 'UserController@submitArticle');
+    Route::patch('edit_article/{article_id}', 'UserController@editArticle');
+    Route::delete('delete_article/{article_id}', 'UserController@deleteArticle');
 });
+
+Route::get('email/verify/{id}', 'UserController@verify');
+Route::get('view/articles', 'UserController@viewArticles');
+Route::get('writers/all', 'UserController@allWriters');
+
+// Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
