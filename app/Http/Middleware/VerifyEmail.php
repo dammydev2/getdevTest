@@ -17,7 +17,7 @@ class VerifyEmail
     public function handle(Request $request, Closure $next)
     {
         if (\Auth::User()->email === null) {
-            return response()->json(['error' => 'please verify email']);;
+            return response()->json(['error' => 'please verify email address']);;
         }
         return $next($request);
     }
